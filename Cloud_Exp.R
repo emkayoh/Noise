@@ -19,8 +19,8 @@ setwd('~/GitHub/Noise')
 # script for cloud instance to evaluate the effect of noise on parameters 
 rm(list = ls())
 
+# initialise other scripts
 source("TestData.R")
-# source('~/Dropbox/Dark/Dark1/TestData.R')
 source("Declutter.R")
 source("Models2.R")
 source("ModelSelect.R")
@@ -28,11 +28,21 @@ source("Start.R")
 source("BestFit.R")
 source("MultiStart.R")
 source("BootDark.R")
-Repeats <- 1000 # this is the number of times 'multistart' runs and is a scalar for 'bootdark'
+
+# Initialise values
+
+Repeats <- 10 
+# this is the number of times 'multistart' runs and is a scalar for 'bootdark'
 x <- seq(0, 20, by = 0.5)
-sse = 0.2
+# The times at which thresholds are generated
 Draw=F
-tmp <- TestData(x, sse, thet = c(-1, 1, 1, -0.24, 6, 0.082, 18))
+# Dont create a plot for each case. 
+thet = c(-1, 1, 1, -0.24, 6, 0.082, 15)
+Out<-NULL
+
+sse = 0.2
+for(kk in 1:10){
+tmp <- TestData(x, sse, thet=thet)
 tmp1 <- Declutter(tmp)
 
 # tmp1 is the data in dark object form
@@ -51,5 +61,8 @@ P <- Start(tmp1, Repeats)
 MSC <- ModelSelect(tmp1, P)
 tmp2 <- BestFit(tmp1, MSC, draw = Draw)
 tmp3 <- MultiStart_2(tmp2, repeats = as.integer(Repeats/2.5), draw = Draw)
-Out <- BootDark(tmp3, R = Repeats, graph = Draw)
-Out
+tmp4 <- BootDark(tmp3, R = Repeats, graph = Draw)
+Out<-c(Out, tmp4)
+}
+save(Out, file=paste('data/Out_',sse,'.Rdata', sep=''))
+
