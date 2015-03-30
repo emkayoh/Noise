@@ -31,7 +31,7 @@ TestData.default <- function(x, theta = NULL, sse = 0.03) {
 		pmax(0, x - theta[7])
 
 	tmp <- list(call = match.call(), time = x, thrs = (Y + Noise), resid = Noise, fit = Y, 
-		thet = theta, sse = sse, val = var(Noise))
+		thet = theta, sse = sse, val = var(Noise), data=paste('Test_data_', sse, sep=''))
 	class(tmp) = "dark"
 	tmp
 }
