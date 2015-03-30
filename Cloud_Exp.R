@@ -11,19 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+setwd('~/GitHub/Noise')
 
 # script for cloud instance to evaluate the effect of noise on parameters 
 rm(list = ls())
-source("~/Dropbox/JMFK-PostDoc/Papers_In_Progress/Z_Analogue_DA/R_Code/LPvJK_Code/TestData.R")
+source("TestData.R")
 # source('~/Dropbox/Dark/Dark1/TestData.R')
-source("~/Dropbox/JMFK-PostDoc/Papers_In_Progress/Z_Analogue_DA/R_Code/LPvJK_Code/Declutter.R")
-source("~/Dropbox/JMFK-PostDoc/Papers_In_Progress/Z_Analogue_DA/R_Code/LPvJK_Code/Models2.R")
-source("~/Dropbox/JMFK-PostDoc/Papers_In_Progress/Z_Analogue_DA/R_Code/LPvJK_Code/ModelSelect.R")
-source("~/Dropbox/JMFK-PostDoc/Papers_In_Progress/Z_Analogue_DA/R_Code/LPvJK_Code/Start.R")
-source("~/Dropbox/JMFK-PostDoc/Papers_In_Progress/Z_Analogue_DA/R_Code/LPvJK_Code/BestFit.R")
-source("~/Dropbox/JMFK-PostDoc/Papers_In_Progress/Z_Analogue_DA/R_Code/LPvJK_Code/MultiStart.R")
-source("~/Dropbox/JMFK-PostDoc/Papers_In_Progress/Z_Analogue_DA/R_Code/LPvJK_Code/BootDark.R")
+source("Declutter.R")
+source("Models2.R")
+source("ModelSelect.R")
+source("Start.R")
+source("BestFit.R")
+source("MultiStart.R")
+source("BootDark.R")
 Repeats <- 1000 # this is the number of times 'multistart' runs and is a scalar for 'bootdark'
 x <- seq(0, 20, by = 0.5)
 sse = 0.2
