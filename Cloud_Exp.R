@@ -11,10 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# This is only needed for local machine 
+
 setwd('~/GitHub/Noise')
 
 # script for cloud instance to evaluate the effect of noise on parameters 
 rm(list = ls())
+
 source("TestData.R")
 # source('~/Dropbox/Dark/Dark1/TestData.R')
 source("Declutter.R")
