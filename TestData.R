@@ -17,6 +17,12 @@
 TestData <- function(x, ...) UseMethod("TestData")
 
 TestData.default <- function(x, theta = NULL, sse = 0.03) {
+ H<-function(x,k=100,t){
+    # x is the measured time
+    # k is the transition constant, set arbitrarily high
+    # t is the time at which the transition occurs
+    round(1/(1+exp(-2*k*(x-t))),1)
+  }
 
 	if (missing(theta)) 
 		theta <- c(-1, 1, 1, -0.24, 6, 0.2, 13)
@@ -27,8 +33,10 @@ TestData.default <- function(x, theta = NULL, sse = 0.03) {
 
 	Len <- length(x)
 	Noise <- rnorm(Len, 0, sqrt(sse))
-	Y <- theta[1] + theta[2] * exp(-x * theta[3]) + theta[4] * pmax(0, x - theta[5]) + theta[6] * 
-		pmax(0, x - theta[7])
+	Y <- theta[1]+theta[2]*exp(-x*theta[3])+ theta[4]*(x-theta[5])*H(x,10,theta[5]) + theta[6]*(x-theta[7])*H(x,10,theta[7])
+	
+	# theta[1] + theta[2] * exp(-x * theta[3]) + theta[4] * pmax(0, x - theta[5]) + theta[6] * 
+		# pmax(0, x - theta[7])
 
 	tmp <- list(call = match.call(), time = x, thrs = (Y + Noise), resid = Noise, fit = Y, 
 		thet = theta, sse = sse, val = var(Noise), data=paste('Test_data_', sse, sep=''))
