@@ -14,7 +14,7 @@ Draw=F
 List <- list()
 Pts<-1:40
  
-Repeats <- 10 
+Repeats <- 1000
 x<- seq(0,20, by=0.5)
 
 sse=0.01
@@ -27,10 +27,11 @@ tmp1<- Declutter(tmp)
 
 x<-tmp1$time
 y<-tmp1$thrs
+if(Draw){
 par(mfrow=c(2,2), las=1, bty='n')
 plot(tmp$time, tmp$thrs)
 points(tmp1$time, tmp1$thrs, pch=16, col=2)
-
+}
 
 P<-Start(tmp1,Repeats)
 MSC<-ModelSelect(tmp1, P)
@@ -38,7 +39,7 @@ tmp2<-BestFit(tmp1, MSC,draw = Draw)
 
 
 
-tmp3<-MultiStart_2(tmp2,repeats = as.integer(Repeats/5),draw=T)
+tmp3<-MultiStart_2(tmp2,repeats = as.integer(Repeats/5),draw=Draw)
 Out<-BootDark(tmp3,R=2*Repeats, graph = Draw)
 # List[[length(List)+1]] <- list(Out)
 # save(List, file=File)
