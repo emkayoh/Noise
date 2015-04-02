@@ -14,9 +14,9 @@
 
 
 # test data 
-TestData <- function(x, ...) UseMethod("TestData")
+#TestData <- function(x, ...) UseMethod("TestData")
 
-TestData.default <- function(x, theta = NULL, sse = 0.03) {
+TestData <- function(x, theta = NULL, sse = 0.03) {
  H<-function(x,k=100,t){
     # x is the measured time
     # k is the transition constant, set arbitrarily high
