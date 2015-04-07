@@ -27,12 +27,24 @@ source("~/GitHub/Noise/MultiStart.R")
 source("~/GitHub/Noise/Start.R")
 source("~/GitHub/Noise/TestData.R")
 
+
+
 Draw = T
 load(GetTestData(-0.24, 2)) # loads the 1000 test data sets in a list called List
 Pts <- 1
 Repeats <- 1000
+Trials<-10
 
-for (ii in Pts) {
+# Initialise variables of interest
+Val <- numeric(Trials)
+Val2 <- numeric(Trials)
+S2  <- numeric(Trials)
+WtS <- numeric(Trials)
+Alp <- numeric(Trials)
+WtA <- numeric(Trials)
+Mod <- numeric(Trials)
+
+for (ii in 1:Trials) {
 	tmp <- List[[ii]]
 
 	x <- tmp$time
@@ -50,6 +62,14 @@ for (ii in Pts) {
 
 	tmp1 <- MultiStart_2(tmp1, repeats = as.integer(Repeats/5), draw = Draw)
 	Out <- BootDark(tmp1, R = 2 * Repeats, graph = Draw)
+	Val[ii] <- Out[[7]]
+	Val2[ii] <- Out[[13]]
+	S2[ii] <- Out[[9]][4]
+	Alp[ii]<-Out[[9]][5]
+	WtS[ii] <- Out[[17]][4]
+	WtA[ii] <- Out[[17]][5]
+	Mod[ii] <- Out[[12]][7]-Out[[12]][5]
+	
 }
 
 # List[[length(List)+1]] <- list(Out)
